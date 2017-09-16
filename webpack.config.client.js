@@ -14,18 +14,28 @@ module.exports = {
 
   module: {
     rules: [
+
       {
-        test: /\.(js)$/,
+        test: /\.(js|jsx)$/,
         exclude: [/node_modules/],
-        loader: 'babel-loader',
-        options: {
-          presets: ['es2015', 'react', 'stage-1'],
-        },
+        use: [{
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              ['env', {'targets': { 'browsers': ['last 2 versions'] }}],
+              'stage-1',
+              'react'
+            ],
+            plugins: ['transform-object-rest-spread', 'async-to-promises']
+          } 
+        }]
       },
+
       {
         test: /\.css$/,
         loader: 'style-loader!css-loader',
-      },
+      }
+      
     ]
   },
 
