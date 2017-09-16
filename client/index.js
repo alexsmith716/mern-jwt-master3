@@ -5,8 +5,8 @@ import { Provider } from 'react-redux';
 import { Router, Route, Switch } from 'react-router-dom';
 import { createStore, applyMiddleware } from 'redux';
 import reduxThunk from 'redux-thunk';
-import history from '../shared/history';
 
+import history from '../shared/history';
 import App from '../shared/App';
 import Header from '../shared/Header';
 import Signin from '../shared/Signin';

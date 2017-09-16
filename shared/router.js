@@ -1,8 +1,10 @@
 
-const path = require('path')
-const AuthenticationRouter = require('./authentication.router');
+const path = require('path');
 const passport = require('passport');
+
+const AuthenticationRouter = require('./authentication.router');
 const passportService = require('./passport');
+
 const requireAuth = passport.authenticate('jwt', { session: false });
 
 module.exports = function(app) {
@@ -18,33 +20,6 @@ module.exports = function(app) {
   app.use(AuthenticationRouter);
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
