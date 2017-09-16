@@ -17,7 +17,9 @@ module.exports = {
 
       {
         test: /\.(js|jsx)$/,
+
         exclude: [/node_modules/],
+
         use: [{
           loader: 'babel-loader',
           options: {
@@ -27,15 +29,16 @@ module.exports = {
               'react'
             ],
             plugins: ['transform-object-rest-spread', 'async-to-promises']
-          } 
+          }
         }]
+
       },
 
       {
         test: /\.css$/,
         loader: 'style-loader!css-loader',
       }
-      
+
     ]
   },
 

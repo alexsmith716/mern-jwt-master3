@@ -49,7 +49,6 @@ const localLogin = new LocalStrategy(localOptions, function(email, password, don
   });
 });
 
-
 // Setup options for JWT Strategy
 const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromHeader('authorization'),

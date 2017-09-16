@@ -1,14 +1,16 @@
 
-require('dotenv').load();
-const express = require('express');
-const http = require('http');
-const bodyParser = require('body-parser');
-const morgan = require('morgan');
+import dotenv from 'dotenv/config';
+import express from 'express';
+import http from 'http';
+import path from 'path';
+import bodyParser from 'body-parser';
+import morgan from 'morgan';
+import mongoose from 'mongoose';
+import cors from 'cors';
+
+import router from '../shared/router';
+
 const app = express();
-const router = require('../shared/router');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const path = require('path');
 
 // DB Setup
 mongoose.Promise = global.Promise;
@@ -17,7 +19,7 @@ mongoose.connect('mongodb://localhost/mern2017', { useMongoClient: true });
 // App Setup
 app.use(morgan('dev'));
 app.use(cors());
-app.use(bodyParser.json({ type: '*/*' }));
+app.use(bodyParser.json());
 
 // app.use('/public', express.static('../public'));
 // app.use(express.static(path.join(__dirname, '../public')));

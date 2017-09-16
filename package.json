@@ -6,8 +6,9 @@
   "author": "",
   "license": "MIT",
   "scripts": {
-    "build": "webpack --progress --colors --config webpack.config.client.js",
-    "start": "nodemon ./server/index.js"
+    "build:client": "webpack --progress --colors --config webpack.config.client.js",
+    "build:server": "webpack --progress --colors --config webpack.config.server.js",
+    "start": "nodemon ./public/server.js"
   },
   "dependencies": {
     "axios": "^0.16.2",
@@ -15,7 +16,6 @@
     "body-parser": "^1.17.2",
     "cors": "^2.8.4",
     "dotenv": "^4.0.0",
-    "dotenv-webpack": "^1.5.4",
     "express": "^4.15.4",
     "history": "^4.7.2",
     "jwt-simple": "^0.5.1",
@@ -46,6 +46,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-1": "^6.24.1",
     "css-loader": "^0.28.7",
+    "dotenv-webpack": "^1.5.4",
     "eslint": "^4.6.1",
     "eslint-config-airbnb": "^15.1.0",
     "eslint-plugin-import": "^2.7.0",

@@ -1,20 +1,20 @@
 
 const path = require('path');
-const srcPath = path.resolve(__dirname, 'src');
-const outputPath = path.resolve(__dirname, 'dist');
+const srcPath = path.resolve(__dirname);
 const nodeExternals = require('webpack-node-externals');
+var webpack = require('webpack')
 
 module.exports = {
 
   context: srcPath,
 
   entry: {
-    app: './server/server.js'
+    app: './server/index.js'
   },
 
   output: {
-    path: outputPath,
-    filename: 'server.js'
+    filename: 'server.js',
+    path: path.resolve(__dirname, './public'),
   },
 
   module: {
@@ -26,18 +26,13 @@ module.exports = {
         options: {
           presets: [
             ['env', {'targets': { 'browsers': ['last 2 versions'] }}],
-            'react',
-            'stage-1'
+            'stage-1',
+            'react'
           ],
-          plugins: ['transform-object-rest-spread']
-        } 
+          plugins: [ 'transform-object-rest-spread' ]
+        }
       }]
     }]
-  },
-
-  resolve: {
-    modules: ['node_modules', 'src'],
-    extensions: ['*', '.js', '.jsx', '.json']
   },
 
   devtool: 'source-map',

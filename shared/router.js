@@ -1,10 +1,16 @@
 
-const path = require('path');
-const passport = require('passport');
 
-const AuthenticationRouter = require('./authentication.router');
-const passportService = require('./passport');
+import React from 'react';
+import ReactDOM from 'react-dom/server';
+import helmet from 'react-helmet';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import { StaticRouter as Router, matchPath } from 'react-router';
 
+import passport from 'passport';
+import AuthenticationRouter from './authentication.router';
+import passportService from './passport';
 const requireAuth = passport.authenticate('jwt', { session: false });
 
 module.exports = function(app) {
@@ -20,34 +26,3 @@ module.exports = function(app) {
   app.use(AuthenticationRouter);
 
 }
-
-
-
-/*
-var JwtStrategy = require('passport-jwt').Strategy;
-var ExtractJwt = require('passport-jwt').ExtractJwt;
-var opts = {}
-opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-opts.secretOrKey = 'secret';
-opts.issuer = 'accounts.examplesoft.com';
-opts.audience = 'yoursite.net';
-passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
-    User.findOne({id: jwt_payload.sub}, function(err, user) {
-        if (err) {
-            return done(err, false);
-        }
-        if (user) {
-            return done(null, user);
-        } else {
-            return done(null, false);
-            // or you could create a new account
-        }
-    });
-}));
-
-app.post('/profile', passport.authenticate('jwt', { session: false }),
-    function(req, res) {
-        res.send(req.user.profile);
-    }
-);
-*/
