@@ -1,16 +1,18 @@
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import PropTypes from 'prop-types';
+import {PropTypes} from 'prop-types';
 
 import { signupUser } from './authentication.actions';
-import styles from './Signup.css';
+// import styles from '../shared/Signup.css';
 
   // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 console.log('>>>> client > Signup.js <<<< loaded');
 
 class Signup extends Component {
+  
   constructor(props) {
     super(props);
 

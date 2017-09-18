@@ -18,21 +18,30 @@ module.exports = {
   },
 
   module: {
-    rules: [{
-      test: /\.(js|jsx)$/,
-      exclude: [/node_modules/],
-      use: [{
-        loader: 'babel-loader',
-        options: {
-          presets: [
-            ['env', {'targets': { 'browsers': ['last 2 versions'] }}],
-            'stage-1',
-            'react'
-          ],
-          plugins: [ 'transform-object-rest-spread' ]
-        }
-      }]
-    }]
+
+    rules: [
+
+      {
+        test: /\.(js|jsx)$/,
+
+        exclude: [/node_modules/],
+
+        use: [{
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              ['env', {'targets': { 'browsers': ['last 2 versions'] }}],
+              'stage-1',
+              'react'
+            ],
+            plugins: [ 'transform-object-rest-spread' ]
+          }
+        }]
+
+      }
+
+    ]
+
   },
 
   devtool: 'source-map',

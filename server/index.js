@@ -8,21 +8,19 @@ import morgan from 'morgan';
 import mongoose from 'mongoose';
 import cors from 'cors';
 
-import router from '../shared/router';
+import router from './router';
+import apiRoutes from './api_routes';
 
 const app = express();
 
-// DB Setup
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/mern2017', { useMongoClient: true });
 
-// App Setup
 app.use(morgan('dev'));
 app.use(cors());
-app.use(bodyParser.json());
+app.use(bodyParser.json({ type: '*/*' }));
 
 // app.use('/public', express.static('../public'));
-// app.use(express.static(path.join(__dirname, '../public')));
 app.use(express.static(path.join(__dirname, '../public')))
 
 app.use(function (req, res, next) {
@@ -34,6 +32,9 @@ app.use(function (req, res, next) {
   next();
 })
 
+//router(app);
+app.use('/api', apiRoutes)
+//app.use('/', router);
 router(app);
 
 // Server Setup
@@ -41,3 +42,18 @@ const port = process.env.PORT || 3000;
 const server = http.createServer(app);
 server.listen(port);
 console.log('Server listening on port:', port);
+
+module.exports = app;
+
+// SERVER:
+// home/index >>>>> 'https://localhost:3000/'
+// about      >>>>> 'https://localhost:3000/about'
+// contact    >>>>> 'https://localhost:3000/contact'
+// signup     >>>>> 'https://localhost:3000/signup'
+// signin     >>>>> 'https://localhost:3000/signin'
+
+// API:
+// signup >>>>>>>>> 'https://localhost:3000/api/signup'
+// signin >>>>>>>>> 'https://localhost:3000/api/signin'
+
+// states: 'Authenticated' || 'Not Authenticated'
