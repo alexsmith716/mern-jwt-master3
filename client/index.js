@@ -2,7 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { createStore, applyMiddleware } from 'redux';
 import reduxThunk from 'redux-thunk';
 
@@ -46,4 +46,4 @@ ReactDOM.render(
       </div>
     </Router>
   </Provider>
-  , document.querySelector('.container-fluid'));
+  , document.getElementById('root'));

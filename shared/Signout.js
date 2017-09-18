@@ -1,6 +1,7 @@
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import {PropTypes} from 'prop-types';
 
 import { signoutUser } from './authentication.actions';
 
@@ -9,6 +10,7 @@ import { signoutUser } from './authentication.actions';
 console.log('>>>> client > Signout.js <<<< loaded');
 
 class Signout extends Component {
+  
   componentWillMount() {
     this.props.signoutUser();
   }

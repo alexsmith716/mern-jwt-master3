@@ -1,5 +1,5 @@
 import axios from 'axios';
-import history from './history';
+//import history from './history';
 
 import {
   AUTH_USER,
@@ -28,7 +28,7 @@ export const signinUser = ({ email, password }) => (
         // - Save the JWT token
         localStorage.setItem('token', response.data.token);
         // - redirect to the route '/feature'
-        history.push('/feature');
+        // history.push('/feature');
       })
       .catch(() => {
         // If request is bad...
@@ -50,7 +50,7 @@ export const signupUser = ({ email, password }) => (
         // - Save the JWT token
         localStorage.setItem('token', response.data.token);
         // - redirect to the route '/feature'
-        history.push('/feature');
+        // history.push('/feature');
       })
       .catch(({ response }) => {
         // If request is bad...
