@@ -6,11 +6,7 @@ import {
   FETCH_MESSAGE,
 } from './authentication.types';
 
-console.log('>>>> client > authentication.reducer.js <<<< loaded');
-
 export default function (state = {}, action) {
-
-  console.log('>>>> client > authentication.reducer.js <<<< action.type', action.type);
 
   switch (action.type) {
 
@@ -40,5 +36,8 @@ export default function (state = {}, action) {
       return state;
 
   }
+
+  console.log('>>>> client > authentication.reducer.js <<<< action.type', action.type);
+  console.log('>>>> client > authentication.reducer.js <<<< state', state);
 
 }

@@ -2,7 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
 import { createStore, applyMiddleware } from 'redux';
 import reduxThunk from 'redux-thunk';
 
@@ -34,16 +34,52 @@ ReactDOM.render(
       <div>
         <Header />
         <div className="container">
-          <Switch>
-            <Route exact path="/" component={App} />
-            <Route path="/signin" component={Signin} />
-            <Route path="/signup" component={Signup} />
-            <Route path="/signout" component={Signout} />
-            <Route path="/feature" component={RequireAuth(Feature)} />
-            <Route render={() => <p>Route not found!</p>} />
-          </Switch>
+          <App />
         </div>
       </div>
     </Router>
   </Provider>
   , document.getElementById('root'));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
