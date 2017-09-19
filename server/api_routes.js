@@ -1,6 +1,12 @@
 import { Router } from 'express';
 const router = new Router();
 
+router.use(function (req, res, next) {
+  console.log('>>>> api_routes > router.use > req.method: ', req.method);
+  console.log('>>>> api_routes > router.use > req.url: ', req.url);
+  next();
+})
+
 /*
 import routes123Routes from './routes123.routes';
 import routesZYXRoutes from './routesZYX.routes';

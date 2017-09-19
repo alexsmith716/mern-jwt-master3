@@ -20,12 +20,7 @@ class Home extends Component {
 
       <div>
 
-        //<Helmet>
-          //<meta charSet="utf-8" />
-          //<title>Home !!</title>
-        //</Helmet>
-
-        <strong>Home1. Welcome !!!!!!</strong>
+        <strong>Welcome !!!!!!</strong>
 
       </div>
 

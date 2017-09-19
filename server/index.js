@@ -32,8 +32,8 @@ app.use(function (req, res, next) {
   next();
 })
 
-app.use('/api', apiRoutes)
 //app.use('/', router);
+app.use('/api', apiRoutes)
 router(app);
 
 // Server Setup
