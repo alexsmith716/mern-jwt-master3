@@ -32,7 +32,6 @@ app.use(function (req, res, next) {
   next();
 })
 
-//router(app);
 app.use('/api', apiRoutes)
 //app.use('/', router);
 router(app);
