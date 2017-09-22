@@ -18,27 +18,24 @@ import reduxThunk from 'redux-thunk';
 import sharedRoutes from '../shared/routes';
 import Header from '../shared/Header';
 
-// Invariant Violation Browser history needs a DOM
-// You cannot use the BrowserHistory on the server. 
-// For server-side rendering you have to use createLocation.
-// And create a one-off location object which you can use with 'match'
-//   in order to figure out what needs to be rendered on the server.
-
 module.exports = function(app) {
 
   console.log('>>> router.js > in app <<<');
 
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
   app.get('*', (req, res) => {
-  // app.get('/', (req, res) => {
-  
+
     console.log('>>>> server.js <<<< app.get(*) > req.url: ', req.url)
-  
+
     const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
     const store = createStoreWithMiddleware(reducers);
     let foundPath = null;
-  
+
     // foundPath = { path: '/', url: '/', isExact: true, params: {} }
-  
+
     let { path, component } = sharedRoutes.routes.find(
       ({ path, exact }) => {
   
@@ -53,16 +50,19 @@ module.exports = function(app) {
     }) || {};
   
     console.log('>>>> server > router.js > app.get(*) > component: ', component)
+    console.log('>>>> server > router.js > app.get(*) > foundPath: ', foundPath)
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
     component.fetchData({ store, params: foundPath.params }).then(() => {
-  
+
       let preloadedState = store.getState();
       let context = {};
 
       console.log('>>>> server.js component.fetchData store: ', store);
       console.log('>>>> server.js component.fetchData preloadedState: ', preloadedState);
-  
+
     
       const html = ReactDOM.renderToString(
 
@@ -82,15 +82,15 @@ module.exports = function(app) {
       const helmetData = helmet.renderStatic();
 
       if (context.url){
-  
+
         console.log('>>>> server.js <<<< component.fetchData context.url 1: ', context.url);
         res.redirect(context.status, 'http://' + req.headers.host + context.url);
-  
+
       }else if (foundPath && foundPath.path == '/404'){
-  
+
         console.log('>>>> server.js <<<< component.fetchData foundPath 404 2: ', foundPath.path);
         res.status(404).send(renderFullPage(html, preloadedState, helmetData))
-        
+
       }else{
   
         console.log('>>>> server.js <<<< component.fetchData renderFullPage 3: ', renderFullPage);
@@ -99,7 +99,11 @@ module.exports = function(app) {
 
     });
   });
+
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   
+
   function renderFullPage(html, preloadedState, helmet) {
 
     console.log('>>>> server.js <<<< renderFullPage > html: ', html);
@@ -133,16 +137,5 @@ module.exports = function(app) {
       </body>
     </html>
     `
-  }
-  
-  /*
-  app.get('/', function (req, res) {
-  // app.get('/', requireAuth, function(req, res) {
-    // res.send({ message: 'Super secret code is ABC123' });
-    res.sendFile(res.locals.publicViews + '/index.html');
-  });
-  
-  app.use(AuthenticationRouter);
-  */
-}
-
+  };
+};
