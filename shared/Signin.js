@@ -3,14 +3,20 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import {PropTypes} from 'prop-types';
+import { Helmet } from 'react-helmet';
 
 import { signinUser } from './authentication.actions';
 
   // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-console.log('>>>> client > Signin.js <<<< loaded');
-
 class Signin extends Component {
+
+  // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  static fetchData({ store }) {
+    console.log('>>>>>>> client > Signin.js > fetchData')
+    return new Promise(resolve => resolve());
+  }
+  // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
   constructor(props) {
     super(props);
@@ -75,6 +81,11 @@ class Signin extends Component {
 
   // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+/*
+const mapStateToProps = state => ({
+  ...state.signin
+});*/
+
 const mapStateToProps = state => ({
   errorMessage: state.auth.error,
 });
@@ -98,20 +109,18 @@ Signin.propTypes = {
   signinUser: PropTypes.func.isRequired,
   errorMessage: PropTypes.string,
 };
- 
-// getting Warning 'Failed propType' for 'errorMessage: PropTypes.string.isRequired'
-// needs further eval
-// Signin.propTypes = {
-  // handleSubmit: PropTypes.func.isRequired,
-  // signinUser: PropTypes.func.isRequired,
-  // errorMessage: PropTypes.string.isRequired,
-// };
 
-  // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options]): connects a React component to a Redux store
+// [mapDispatchToProps]: the new component will subscribe to Redux store updates
+// [mapDispatchToProps]: each function inside (it) is assumed to be a Redux action creator
+// [mergeProps]: is passed the result of mapStateToProps(), mapDispatchToProps(), and the parent props
+// [options]: further customizes the behavior of the connector
 
-export default reduxForm({
-  validate,
-  form: 'signin',
-})(
-  connect(mapStateToProps, { signinUser })(Signin),
-);
+//const form = reduxForm({ validate, form: 'signin' });
+//export default connect(mapStateToProps, { signinUser })(form(Signin));
+// export default reduxForm({validate,form: 'signin',})(connect(mapStateToProps, { signinUser })(Signin));
+Signin = reduxForm({ validate, form: 'signin' })(Signin);
+export default connect(mapStateToProps, { signinUser })(Signin);
+
+
+

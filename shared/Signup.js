@@ -3,15 +3,27 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import {PropTypes} from 'prop-types';
+import { Helmet } from 'react-helmet';
 
 import { signupUser } from './authentication.actions';
-// import styles from '../shared/Signup.css';
+import styles from '../shared/Signup.css';
 
   // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 console.log('>>>> client > Signup.js <<<< loaded');
 
 class Signup extends Component {
+
+  // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+  static fetchData({ store }) {
+
+    console.log('>>>>>>> client > Signup.js > fetchData')
+    return new Promise(resolve => resolve());
+    
+  }
+
+  // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   
   constructor(props) {
     super(props);

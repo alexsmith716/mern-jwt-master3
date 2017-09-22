@@ -7,6 +7,8 @@ import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import favicon from 'serve-favicon';
+import webpack from 'webpack';
 
 import router from './router';
 import apiRoutes from './api_routes';
@@ -21,16 +23,24 @@ app.use(cors());
 app.use(bodyParser.json({ type: '*/*' }));
 
 // app.use('/public', express.static('../public'));
-app.use(express.static(path.join(__dirname, '../public')))
+app.use(express.static(path.join(__dirname, '../public')));
+app.use('/public', express.static(path.join(__dirname, '../public')));
+app.use(favicon(path.join(__dirname, '../public/favicon', 'favicon.ico')));
 
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
   console.log('>>>>>>>>>>> GOING THROUGH APP NOW <<<<<<<<<<<<<');
   res.locals.publicViews = path.join(__dirname, 'public')
   console.log('REQ.method +++++: ', req.method);
   console.log('REQ.url ++++++++: ', req.url);
   console.log('REQ.headers ++++: ', req.headers)
   next();
-})
+});
+
+app.use((req, res, next) => {
+  // res.header('Access-Control-Allow-Origin', '*');
+  // res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
 
 //app.use('/', router);
 app.use('/api', apiRoutes)
@@ -43,16 +53,3 @@ server.listen(port);
 console.log('Server listening on port:', port);
 
 module.exports = app;
-
-// SERVER:
-// home/index >>>>> 'https://localhost:3000/'
-// about      >>>>> 'https://localhost:3000/about'
-// contact    >>>>> 'https://localhost:3000/contact'
-// signup     >>>>> 'https://localhost:3000/signup'
-// signin     >>>>> 'https://localhost:3000/signin'
-
-// API:
-// signup >>>>>>>>> 'https://localhost:3000/api/signup'
-// signin >>>>>>>>> 'https://localhost:3000/api/signin'
-
-// states: 'Authenticated' || 'Not Authenticated'

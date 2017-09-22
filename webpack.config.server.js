@@ -40,20 +40,13 @@ module.exports = {
         }]
       },
       {
-        test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: 'css-loader'
-        })
+        test: /\.json$/,
+        loader: 'json-loader'
       }
     ]
   },
 
   devtool: 'source-map',
-
-  plugins: [
-    new ExtractTextPlugin('styles.css')
-  ],
 
   target: 'node',
 

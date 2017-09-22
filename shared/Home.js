@@ -6,10 +6,8 @@ import { Helmet } from 'react-helmet';
 class Home extends Component {
 
   static fetchData({ store }) {
-
     console.log('>>>>>>> client > home.js > fetchData')
     return new Promise(resolve => resolve());
-    
   }
 
   render() {
