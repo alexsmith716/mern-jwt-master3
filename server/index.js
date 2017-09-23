@@ -35,12 +35,16 @@ app.use(morgan('dev'));
 app.use(cors());
 app.use(bodyParser.json({ type: '*/*' }));
 
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 app.use(helmet())
 app.use((req, res, next) => {
   // res.header('Access-Control-Allow-Origin', '*');
   // res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
 });
+
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 app.use((req, res, next) => {
   console.log('>>>>>>>>>>> GOING THROUGH APP NOW <<<<<<<<<<<<<');
@@ -51,8 +55,11 @@ app.use((req, res, next) => {
   next();
 });
 
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 app.use('/api', apiRoutes);
+
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 // http://mongoosejs.com/docs/connections.html
 // http://mongodb.github.io/node-mongodb-native/2.1/api/Server.html
@@ -65,8 +72,49 @@ mongoose.connect('mongodb://localhost/mern2017', mongooseOptions, error => {
   }
 });
 
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 router(app);
+
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+app.use(function (req, res, next) {
+  console.log('>>>> APP UNCAUGHT ERR HANDLER 404 <<<<');
+  var err = new Error('Not Found, req.originalUrl: '+req.originalUrl);
+  err.status = 404;
+  next(err);
+});
+
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+if (app.get('env') === 'development') {
+
+  app.use(function (err, req, res, next) {
+
+    console.log('>>>> APP UNCAUGHT ERR HANDLER DEVELOPMENT <<<<');
+
+    res.status(err.status || 500);
+
+    console.log('>>>> DEV ERR: ', err);
+    console.log('>>>> DEV ERR.code: ', err.code);
+    console.log('>>>> DEV ERR.status: ', err.status);
+    console.log('>>>> DEV ERR.name: ', err.name);
+    console.log('>>>> DEV ERR.message: ', err.message);
+    console.log('>>>> DEV ERR.referer: ', err.referer);
+    console.log('>>>> DEV REQ.originalUrl: ',  req.originalUrl);
+    console.log('>>>> DEV REQ.HEADERS.referer: ', req.headers['referer']);
+    console.log('>>>> DEV REQ.xhr: ', req.xhr);
+
+    if (req.xhr) {
+      console.log('>>>> APP UNCAUGHT ERR HANDLER DEVELOPMENT > YES XHR <<<<');
+      res.json({'response': 'error', 'type': 'error', 'err': err});
+
+    } else {
+      console.log('>>>> APP UNCAUGHT ERR HANDLER DEVELOPMENT > NO XHR <<<<');
+      res.send('>>>> APP UNCAUGHT ERR HANDLER DEVELOPMENT > NO XHR <<<<: ', err);
+    }
+  });
+};
 
 // Server Setup
 const port = process.env.PORT || 3000;
@@ -75,3 +123,4 @@ server.listen(port);
 console.log('Server listening on port:', port);
 
 module.exports = app;
+

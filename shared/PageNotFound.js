@@ -1,8 +1,7 @@
 
 import React, { Component } from 'react';
-import { Helmet } from 'react-helmet';
 
-class Home extends Component {
+class PageNotFound extends Component {
 
   // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   static fetchData({ store }) {
@@ -12,18 +11,15 @@ class Home extends Component {
 
   render() {
 
-    console.log('>>>>>>> client > home.js > render')
-
     return (
 
       <div>
-
-        <strong>Welcome !!!!!!</strong>
-
+        Error 404; Page Not Found.
       </div>
 
     );
+
   }
 }
 
-export default Home;
+export default PageNotFound;

@@ -4,11 +4,13 @@ import { connect } from 'react-redux';
 import {PropTypes} from 'prop-types';
 import { fetchMessage } from './authentication.actions';
 
-  // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-console.log('>>>> client > Feature.js <<<< loaded');
-
 class Feature extends Component {
+
+  // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  static fetchData({ store }) {
+    return new Promise(resolve => resolve());
+  }
+  // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
   componentWillMount() {
     this.props.fetchMessage();
