@@ -10,9 +10,10 @@ const app = express();
 
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-import { StaticRouter as Router, matchPath } from 'react-router';
 
-import App from '../shared/App';
+import { StaticRouter as Router, matchPath } from 'react-router';
+import { matchRoutes, renderRoutes } from 'react-router-config';
+
 import reducers from '../shared/reducers';
 import reduxThunk from 'redux-thunk';
 import sharedRoutes from '../shared/routes';
@@ -22,23 +23,19 @@ module.exports = function(app) {
 
   console.log('>>> router.js > in app <<<');
 
-
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+  app.use((req, res, next) => {
 
-  app.get('*', (req, res) => {
-
-    console.log('>>>> server.js <<<< app.get(*) > req.url: ', req.url)
+    console.log('>>> server.js <<< app.use(req, res, next) > req.url: ', req.url);
+    console.log('>>> server.js <<< app.use(req, res, next) > req.method: ', req.method);
 
     const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
     const store = createStoreWithMiddleware(reducers);
+
     let foundPath = null;
-
-    // foundPath = { path: '/', url: '/', isExact: true, params: {} }
-
-    let { path, component } = sharedRoutes.routes.find(
+    let { path, component } = routes.routes.find(
       ({ path, exact }) => {
-  
         foundPath = matchPath(req.url,
           {
             path,
@@ -48,67 +45,58 @@ module.exports = function(app) {
         )
         return foundPath;
     }) || {};
-  
-    console.log('>>>> server > router.js > app.get(*) > component: ', component)
-    console.log('>>>> server > router.js > app.get(*) > foundPath: ', foundPath)
 
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    console.log('>>> server.js <<< app.use(req, res, next) > foundPath: ', foundPath);
 
+    const branch = matchRoutes(routes, req.url);
 
-    component.fetchData({ store, params: foundPath.params }).then(() => {
+    // do async request for new initialState provide to server render
+    const promises = branch.map(({route}) => {
+
+      let fetchData = route.component.fetchData;
+      return fetchData instanceof Function ? fetchData(store) : Promise.resolve(null)
+
+    });
+
+    Promise.all(promises).then(() => {
 
       let preloadedState = store.getState();
       let context = {};
 
-      console.log('>>>> server.js component.fetchData store: ', store);
-      console.log('>>>> server.js component.fetchData preloadedState: ', preloadedState);
-
-    
-      const html = ReactDOM.renderToString(
+      const html = renderToString(
 
         <Provider store={store}>
+
           <Router context={context} location={req.url}>
-            <div>
-              <Header />
-              <div className="container">
-                <App />
-              </div>
-            </div>
+
+            {renderRoutes(routes)}
+
           </Router>
+
         </Provider>
 
       )
 
       const helmetData = helmet.renderStatic();
 
-      if (context.url){
+      console.log('>>> server.js <<< app.use(req, res, next) > Promise.all > context.status: ', context.status);
+      console.log('>>> server.js <<< app.use(req, res, next) > Promise.all > context.url: ', context.url);
+      console.log('>>> server.js <<< app.use(req, res, next) > Promise.all > html: ', html);
+      console.log('>>> server.js <<< app.use(req, res, next) > Promise.all > preloadedState: ', preloadedState);
+      //res.status(200).send(renderFullPage(html, preloadedState, helmetData));
 
-        console.log('>>>> server.js <<<< component.fetchData context.url 1: ', context.url);
-        res.redirect(context.status, 'http://' + req.headers.host + context.url);
+    }).catch((err) => {
 
-      }else if (foundPath && foundPath.path == '/404'){
-
-        console.log('>>>> server.js <<<< component.fetchData foundPath 404 2: ', foundPath.path);
-        res.status(404).send(renderFullPage(html, preloadedState, helmetData))
-
-      }else{
-  
-        console.log('>>>> server.js <<<< component.fetchData renderFullPage 3: ', renderFullPage);
-        res.send(renderFullPage(html, preloadedState, helmetData))
-      }
+      console.log('>>> server.js <<< app.use(req, res, next) > Promise.all > err: ', err);
+      return next(err);
 
     });
-  });
 
+  });
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   
-
   function renderFullPage(html, preloadedState, helmet) {
-
-    console.log('>>>> server.js <<<< renderFullPage > html: ', html);
-    console.log('>>>> server.js <<<< renderFullPage > preloadedState: ', preloadedState);
-    console.log('>>>> server.js <<<< renderFullPage > helmet: ', helmet);
 
     return `
     <!doctype html>

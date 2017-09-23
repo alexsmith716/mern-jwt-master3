@@ -5,8 +5,6 @@ import { Switch, Link, Route } from 'react-router-dom';
 import routeOptions from './routes';
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-// react-router-dom: DOM bindings for [React Router]
-
 class App extends Component {
 
   render() {

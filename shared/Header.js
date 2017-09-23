@@ -7,6 +7,12 @@ import styles from './Header.css';
 
 class Header extends Component {
 
+  // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  static fetchData({ store }) {
+    return new Promise(resolve => resolve());
+  }
+  // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
   renderLinks() {
     if (this.props.authenticated) {
       return (

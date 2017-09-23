@@ -7,13 +7,10 @@ import { Helmet } from 'react-helmet';
 
 import { signinUser } from './authentication.actions';
 
-  // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
 class Signin extends Component {
 
   // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   static fetchData({ store }) {
-    console.log('>>>>>>> client > Signin.js > fetchData')
     return new Promise(resolve => resolve());
   }
   // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++

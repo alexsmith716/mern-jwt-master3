@@ -5,11 +5,13 @@ import {PropTypes} from 'prop-types';
 
 import { signoutUser } from './authentication.actions';
 
-  // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-console.log('>>>> client > Signout.js <<<< loaded');
-
 class Signout extends Component {
+
+  // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  static fetchData({ store }) {
+    return new Promise(resolve => resolve());
+  }
+  // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   
   componentWillMount() {
     this.props.signoutUser();

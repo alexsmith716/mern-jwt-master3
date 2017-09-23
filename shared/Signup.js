@@ -8,21 +8,12 @@ import { Helmet } from 'react-helmet';
 import { signupUser } from './authentication.actions';
 import styles from '../shared/Signup.css';
 
-  // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-console.log('>>>> client > Signup.js <<<< loaded');
-
 class Signup extends Component {
 
   // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
   static fetchData({ store }) {
-
-    console.log('>>>>>>> client > Signup.js > fetchData')
     return new Promise(resolve => resolve());
-    
   }
-
   // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   
   constructor(props) {
