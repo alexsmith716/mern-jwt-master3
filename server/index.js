@@ -4,6 +4,7 @@ import express from 'express';
 import http from 'http';
 import path from 'path';
 import bodyParser from 'body-parser';
+import compression from 'compression';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
 import cors from 'cors';
@@ -12,6 +13,10 @@ import helmet from 'helmet';
 import webpack from 'webpack';
 
 // dotenv.config();
+
+console.log('>>>>>>>>>>> DOTENV :::::: <<<<<<<<<<<<<1: ', process.env.PORT);
+console.log('>>>>>>>>>>> DOTENV :::::: <<<<<<<<<<<<<2: ', process.env.MONGO_URL);
+console.log('>>>>>>>>>>> DOTENV :::::: <<<<<<<<<<<<<3: ', typeof process.env.MONGO_URL);
 
 const app = express();
 
@@ -27,6 +32,7 @@ if (process.env.NODE_ENV === 'development') {
   //
 }
 
+app.use(compression());
 app.use(express.static(path.join(__dirname, '../public')));
 app.use('/public', express.static(path.join(__dirname, '../public')));
 app.use(favicon(path.join(__dirname, '../public/favicon', 'favicon.ico')));
@@ -34,6 +40,7 @@ app.use(favicon(path.join(__dirname, '../public/favicon', 'favicon.ico')));
 app.use(morgan('dev'));
 app.use(cors());
 app.use(bodyParser.json({ type: '*/*' }));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -65,7 +72,7 @@ app.use('/api', apiRoutes);
 // http://mongodb.github.io/node-mongodb-native/2.1/api/Server.html
 mongoose.Promise = global.Promise;
 const mongooseOptions = { useMongoClient: true, autoReconnect: true, keepAlive: 2, connectTimeoutMS: 400000 };
-mongoose.connect('mongodb://localhost/mern2017', mongooseOptions, error => {
+mongoose.connect(process.env.MONGO_URL, mongooseOptions, error => {
   if (error) {
     console.error('>>>>>> mongoose.connect error <<<<<<<: ', error);
     throw error;
@@ -116,11 +123,10 @@ if (app.get('env') === 'development') {
   });
 };
 
-// Server Setup
-const port = process.env.PORT || 3000;
-const server = http.createServer(app);
-server.listen(port);
-console.log('Server listening on port:', port);
+app.listen(process.env.PORT, (error) => {
+  if (!error) {
+    console.log(`Express server running on port ${process.env.PORT}`);
+  }
+});
 
-module.exports = app;
-
+export default app;
