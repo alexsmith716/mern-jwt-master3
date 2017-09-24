@@ -46,6 +46,7 @@ module.exports = function(app) {
         return foundPath;
     }) || {};
 
+    // checking out above let foundPath
     console.log('>>> server.js <<< app.use(req, res, next) > foundPath: ', foundPath);
 
     const branch = matchRoutes(routes, req.url);
@@ -88,7 +89,7 @@ module.exports = function(app) {
     }).catch((err) => {
 
       console.log('>>> server.js <<< app.use(req, res, next) > Promise.all > err: ', err);
-      return next(err);
+      next(err);
 
     });
 
