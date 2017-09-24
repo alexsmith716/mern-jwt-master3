@@ -28,8 +28,7 @@ module.exports = {
               ['env', {'targets': { 'browsers': ['last 2 versions'] }}],
               'stage-1',
               'react'
-            ],
-            plugins: ['transform-object-rest-spread', 'async-to-promises']
+            ]
           }
         }]
 

@@ -105,10 +105,10 @@ module.exports = function(app) {
 
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- <link rel="icon" href="/favicon/favicon.ico" type="image/ico" /> -->
+        <link rel="icon" href="/favicon/favicon.ico" type="image/ico" />
 
-        <link href="data:image/x-icon;" type="image/x-icon" rel="shortcut icon">
-        <intercept-url pattern="/favicon.ico" access="ROLE_ANONYMOUS"></intercept-url>
+        <!-- <link href="data:image/x-icon;" type="image/x-icon" rel="shortcut icon"> -->
+        <!-- <intercept-url pattern="/favicon.ico" access="ROLE_ANONYMOUS"></intercept-url> -->
 
         <link rel="stylesheet" href="/style/style.css">
         <link rel="stylesheet" href="/vendor/bootstrap.3.3.7/css/bootstrap.min.css">
