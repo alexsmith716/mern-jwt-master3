@@ -35,7 +35,13 @@ module.exports = {
               'stage-1',
               'react'
             ],
-            plugins: [ 'transform-object-rest-spread' ]
+            plugins: [
+              [
+                'css-modules-transform', {
+                  'generateScopedName': '[name]_[local]_[hash:base64:5]'
+                }
+              ]
+            ]
           }
         }]
       },
