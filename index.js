@@ -7,7 +7,7 @@ require('babel-register')({
   'plugins': [
     [
       'css-modules-transform', {
-        'preprocessCss': './loaders/sassLoader.js',
+        'preprocessCss': './loaders/sass-loader.js',
         'generateScopedName': '[name]_[local]_[hash:base64:5]',
         'extensions': ['.scss']
       }
