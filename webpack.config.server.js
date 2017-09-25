@@ -1,4 +1,11 @@
 
+// https://webpack.js.org/configuration/externals/
+// https://webpack.js.org/loaders/
+// https://webpack.js.org/plugins/
+// https://webpack.js.org/guides/hot-module-replacement
+// https://github.com/gajus/babel-plugin-react-css-modules
+// https://github.com/michalkvasnicak/babel-plugin-css-modules-transform
+
 const fs = require('fs');
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
@@ -29,7 +36,7 @@ module.exports = {
           options: {
             presets: [
               ['env', {'targets': { 'browsers': ['last 2 versions'] }}],
-              'stage-1',
+              'stage-2',
               'react'
             ],
             plugins: [
@@ -47,6 +54,10 @@ module.exports = {
         loader: 'json-loader'
       }
     ]
+  },
+
+  resolve: {
+    extensions: ['.js'],
   },
 
   target: 'node',
