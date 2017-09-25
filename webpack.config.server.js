@@ -6,7 +6,6 @@
 // https://github.com/gajus/babel-plugin-react-css-modules
 // https://github.com/michalkvasnicak/babel-plugin-css-modules-transform
 
-const fs = require('fs');
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 
@@ -17,8 +16,8 @@ module.exports = {
   },
 
   output: {
-    filename: 'server.js',
-    path: path.resolve(__dirname, './public'),
+    filename: 'server.bundle.js',
+    path: __dirname + '/dist/',
     libraryTarget: 'commonjs2'
   },
 
@@ -27,7 +26,7 @@ module.exports = {
     rules: [
 
       {
-        test: /\.(js|jsx)$/,
+        test: /\.js$/,
 
         exclude: [/node_modules/],
 
@@ -42,7 +41,9 @@ module.exports = {
             plugins: [
               [
                 'css-modules-transform', {
-                  'generateScopedName': '[name]_[local]_[hash:base64:5]'
+                  'preprocessCss': './loaders/sassLoader.js',
+                  'generateScopedName': '[name]_[local]_[hash:base64:5]',
+                  'extensions': ['.scss']
                 }
               ]
             ]
