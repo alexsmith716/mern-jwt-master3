@@ -54,10 +54,10 @@ ssl
 
 bundle.js
 dist
-server.js
 server.js.map
 styles.css
 styles.css.map
+public/server.js
 server/config/config.js
 
 
