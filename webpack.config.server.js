@@ -1,21 +1,18 @@
 
+const fs = require('fs');
 const path = require('path');
-const srcPath = path.resolve(__dirname);
 const nodeExternals = require('webpack-node-externals');
-var webpack = require('webpack');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
 
-  context: srcPath,
-
   entry: {
-    app: './server/index.js'
+    app: './server/server.js'
   },
 
   output: {
     filename: 'server.js',
     path: path.resolve(__dirname, './public'),
+    libraryTarget: 'commonjs2'
   },
 
   module: {
@@ -52,15 +49,13 @@ module.exports = {
     ]
   },
 
-  devtool: 'source-map',
-
   target: 'node',
 
   externals: nodeExternals(),
 
   node: {
-    __dirname: false,
-    __filename: false
+    __dirname: true,
+    __filename: true,
   }
 };
 
