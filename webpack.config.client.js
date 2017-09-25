@@ -18,41 +18,64 @@ module.exports = {
 
       {
         test: /\.(js|jsx)$/,
-
         exclude: [/node_modules/],
-
         use: [{
           loader: 'babel-loader',
           options: {
             presets: [
               ['env', {'targets': { 'browsers': ['last 2 versions'] }}],
-              'stage-1',
+              'stage-2',
               'react'
             ]
           }
         }]
 
       },
+
       {
         test: /\.(jpe?g|gif|png|svg)$/i,
-        loader: 'url-loader?limit=10000'
+        use:[
+          {
+            loader: "url-loader",
+            options: {
+              limit:10000
+            }
+          }
+        ]
       },
+
       {
         test: /\.json$/,
-        loader: 'json-loader'
+        use: [
+          {loader: "json-loader"}
+        ]
       },
+
       {
-        test: /\.css$/,
+        test: /\.scss$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: 'css-loader'
+          use: [{
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              localIdentName: "[name]_[local]_[hash:base64:5]"
+            }
+          },
+          {
+                loader: 'postcss-loader'
+          },
+          {
+            loader: 'sass-loader'
+          }]
         })
-      }
+      },
+
     ]
   },
 
   resolve: {
-    extensions: ['.js', '.jsx', '.css'],
+    extensions: ['.js'],
   },
 
   devServer: {
