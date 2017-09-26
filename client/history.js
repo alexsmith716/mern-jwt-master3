@@ -1,5 +1,5 @@
-import { createBrowserHistory } from 'history';
+//import { createBrowserHistory } from 'history';
 
 console.log('>>>> client > history.js <<<< loaded');
 
-export default createBrowserHistory();
+//export default createBrowserHistory();

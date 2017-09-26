@@ -18,14 +18,14 @@ export default function (ComposedComponent) {
     componentWillMount() {
       console.log('>>>> client > RequireAuth.js <<<< componentWillMount: ', this.props);
       if (!this.props.authenticated) {
-        this.context.router.history.push('/');
+        //this.context.router.history.push('/');
       }
     }
 
     componentWillUpdate(nextProps) {
       console.log('>>>> client > RequireAuth.js <<<< componentWillUpdate: ', nextProps);
       if (!nextProps.authenticated) {
-        this.context.router.history.push('/');
+        //this.context.router.history.push('/');
       }
     }
 

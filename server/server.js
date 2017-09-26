@@ -1,5 +1,6 @@
 
 import dotenv from 'dotenv/config';
+//import dotenv from 'dotenv';
 import express from 'express';
 import http from 'http';
 import path from 'path';
@@ -12,7 +13,7 @@ import favicon from 'serve-favicon';
 import helmet from 'helmet';
 import webpack from 'webpack';
 
-// dotenv.config();
+//dotenv.config();
 
 console.log('>>>>>>>>>>> DOTENV :::::: <<<<<<<<<<<<<1: ', process.env.PORT);
 console.log('>>>>>>>>>>> DOTENV :::::: <<<<<<<<<<<<<2: ', process.env.MONGO_URL);
@@ -81,7 +82,7 @@ mongoose.connect(process.env.MONGO_URL, mongooseOptions, error => {
 
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-router(app);
+// router(app);
 
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
