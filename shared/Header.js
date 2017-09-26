@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {PropTypes} from 'prop-types';
-import styles from './Header.css';
+import styles from './header.scss';
 
 class Header extends Component {
 

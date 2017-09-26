@@ -9,7 +9,7 @@
     "bb": "webpack --progress --colors --config webpack.config.client.js && webpack --progress --colors --config webpack.config.server.js",
     "build:client": "webpack --progress --colors --config webpack.config.client.js",
     "build:server": "webpack --progress --colors --config webpack.config.server.js",
-    "start": "nodemon ./public/server.js",
+    "start": "nodemon --inspect index.js",
     "clean": "rimraf dist"
   },
   "dependencies": {
