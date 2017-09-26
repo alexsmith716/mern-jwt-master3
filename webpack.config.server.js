@@ -4,33 +4,30 @@
 // https://webpack.js.org/plugins/
 // https://webpack.js.org/guides/hot-module-replacement
 // https://github.com/gajus/babel-plugin-react-css-modules
-// https://github.com/michalkvasnicak/babel-plugin-css-modules-transform
 
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
 
-  entry: {
-    app: './server/server.js'
-  },
+  entry: path.join(__dirname, './server/server.js'),
 
   output: {
     filename: 'server.bundle.js',
-    path: __dirname + '/dist/',
+    path: path.join(__dirname, '/dist'),
     libraryTarget: 'commonjs2'
   },
 
   module: {
 
     rules: [
-
       {
         test: /\.js$/,
 
         exclude: [/node_modules/],
 
         use: [{
+
           loader: 'babel-loader',
           options: {
             presets: [
@@ -47,17 +44,28 @@ module.exports = {
                 }
               ]
             ]
-          }
+          },
+
         }]
       },
       {
         test: /\.json$/,
-        loader: 'json-loader'
-      }
+        use: [{
+          loader: 'json-loader',
+          options: {
+            /* ... */
+          }
+        }]
+
+      },
     ]
   },
 
   resolve: {
+    modules: [
+      'node_modules',
+      'client',
+    ],
     extensions: ['.js'],
   },
 

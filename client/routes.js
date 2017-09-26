@@ -1,8 +1,8 @@
 
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++
-import Home from '../shared/Home.js';
-import Signup from '../shared/Signup.js';
-import Signin from '../shared/Signin.js';
+import Home from './Home.js';
+import Signup from './Signup.js';
+import Signin from './Signin.js';
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 export default {

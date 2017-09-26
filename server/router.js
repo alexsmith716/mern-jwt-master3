@@ -10,14 +10,13 @@ const app = express();
 
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-
+import reduxThunk from 'redux-thunk';
 import { StaticRouter as Router, matchPath } from 'react-router';
 import { matchRoutes, renderRoutes } from 'react-router-config';
 
-import reducers from '../shared/reducers';
-import reduxThunk from 'redux-thunk';
-import sharedRoutes from '../shared/routes';
-import Header from '../shared/Header';
+import reducers from '../client/reducers';
+import sharedRoutes from '../client/routes';
+import Header from '../client/Header';
 
 module.exports = function(app) {
 
