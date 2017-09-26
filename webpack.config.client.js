@@ -1,16 +1,24 @@
 
+// https://survivejs.com/webpack/styling/loading/
+// https://forum.shakacode.com/t/best-practices-for-css-and-css-modules-using-webpack/799
+// https://www.triplet.fi/blog/practical-guide-to-react-and-css-modules/
+// https://medium.com/@aghh1504/4-four-ways-to-style-react-components-ac6f323da822
+
 const path = require('path');
 const webpack = require('webpack');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
 
-  entry: './client/index.js',
+  entry: {
+    app: [ path.join(__dirname, './client/index.js') ],
+    vendor: [ 'react', 'react-dom' ]
+  },
 
   output: {
-    filename: '[name].bundle.js',
-    path: path.resolve(__dirname, './public/assets'),
-    publicPath: '/assets',
+    filename: '[name].js',
+    path: path.join(__dirname, '/dist'),
+    publicPath: '/',
   },
 
   module: {
@@ -36,7 +44,7 @@ module.exports = {
         test: /\.(jpe?g|gif|png|svg)$/i,
         use:[
           {
-            loader: "url-loader",
+            loader: 'url-loader',
             options: {
               limit:10000
             }
@@ -47,7 +55,7 @@ module.exports = {
       {
         test: /\.json$/,
         use: [
-          {loader: "json-loader"}
+          {loader: 'json-loader'}
         ]
       },
 
@@ -55,32 +63,41 @@ module.exports = {
         test: /\.scss$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: [{
-            loader: 'css-loader',
-            options: {
-              modules: true,
-              localIdentName: "[name]_[local]_[hash:base64:5]"
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true,
+                localIdentName: '[name]_[local]_[hash:base64:5]'
+              }
+            },
+            {
+              loader: 'postcss-loader'
+            },
+            {
+              loader: 'sass-loader'
             }
-          },
-          {
-                loader: 'postcss-loader'
-          },
-          {
-            loader: 'sass-loader'
-          }]
+          ]
         })
+      },
+
+      {
+        test: /\.css$/,
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader'
+          }
+        ]
       },
 
     ]
   },
 
   resolve: {
-    extensions: ['.js'],
-  },
-
-  devServer: {
-    historyApiFallback: true,
-    contentBase: './',
+    extensions: ['.js', '.jsx', '.css'],
   },
 
   plugins: [

@@ -41,7 +41,7 @@ class Signup extends Component {
     const { handleSubmit } = this.props;
 
     const renderField = field => (
-      <fieldset style={styles} className="form-group">
+      <fieldset className={styles.error} className="form-group">
         <label htmlFor={field.input.name}>{field.label}</label>
         <input
           type={field.type}
