@@ -7,7 +7,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { createStore, applyMiddleware } from 'redux';
 import reduxThunk from 'redux-thunk';
 
-import history from './history';
+//import history from './history';
 import App from './App';
 import reducers from './reducers';
 import { AUTH_USER } from './authentication.types';
@@ -30,6 +30,7 @@ const store = createStoreWithMiddleware(reducers);
 const token = localStorage.getItem('token');
 
 console.log('>>>> client > INDEX.js <<<< loaded');
+// <Router history={history}>
 
 if (token) {
   store.dispatch({ type: AUTH_USER });
@@ -37,7 +38,7 @@ if (token) {
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={history}>
+    <Router>
       <div>
         <Header />
         <div className="container">

@@ -4,6 +4,9 @@
 // https://www.triplet.fi/blog/practical-guide-to-react-and-css-modules/
 // https://medium.com/@aghh1504/4-four-ways-to-style-react-components-ac6f323da822
 
+// devtool: 'inline-source-map'
+// devtool: 'eval-source-map'
+
 const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -30,6 +33,7 @@ module.exports = {
         use: [{
           loader: 'babel-loader',
           options: {
+            babelrc: false,
             presets: [
               ['env', {'targets': { 'browsers': ['last 2 versions'] }}],
               'stage-2',
@@ -99,6 +103,8 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx', '.css'],
   },
+
+  devtool: 'cheap-module-source-map',
 
   plugins: [
     new ExtractTextPlugin('styles.css')

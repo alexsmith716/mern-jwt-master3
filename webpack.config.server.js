@@ -30,6 +30,7 @@ module.exports = {
 
           loader: 'babel-loader',
           options: {
+            babelrc: false,
             presets: [
               ['env', {'targets': { 'browsers': ['last 2 versions'] }}],
               'stage-2',
