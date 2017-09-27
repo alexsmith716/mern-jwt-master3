@@ -34,8 +34,8 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 app.use(compression());
-app.use(express.static(path.join(__dirname, '../public')));
-app.use('/public', express.static(path.join(__dirname, '../public')));
+// app.use(express.static(path.join(__dirname, '../public')));
+app.use('/public', express.static(path.join(__dirname, '../dist/client')));
 app.use(favicon(path.join(__dirname, '../public/favicon', 'favicon.ico')));
 
 app.use(morgan('dev'));

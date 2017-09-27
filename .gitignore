@@ -5,7 +5,6 @@
 *.exe
 *.o
 *.so
-
 *.7z
 *.dmg
 *.gz
@@ -14,14 +13,6 @@
 *.rar
 *.tar
 *.zip
-
-.DS_Store
-ehthumbs.db
-Icon?
-Thumbs.db
-ehthumbs.db
-
-lib-cov
 *.seed
 *.log
 *.csv
@@ -34,23 +25,30 @@ lib-cov
 *.crt
 *.pem
 
+.DS_Store
+ehthumbs.db
+Icon?
+Thumbs.db
+ehthumbs.db
+
+lib-cov
+
 bin/*.json
 .bin
 
-coverage
 .nodemonignore
 .bower-*/
 bower_components
+npm-debug.log
 
-.idea
-.vscode
+.idea/
+.vscode/
 dist
 pids
 logs
 results
-node_modules
+node_modules/
 ssl
-
 
 bundle.js
 dist
@@ -59,5 +57,7 @@ styles.css
 styles.css.map
 public/server.js
 server/config/config.js
+coverage/
+.nyc_output/
 
 
