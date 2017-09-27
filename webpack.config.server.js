@@ -79,5 +79,3 @@ module.exports = {
     __filename: true,
   }
 };
-
-
