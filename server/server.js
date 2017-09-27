@@ -76,7 +76,8 @@ const mongooseOptions = { useMongoClient: true, autoReconnect: true, keepAlive: 
 mongoose.connect(process.env.MONGO_URL, mongooseOptions, error => {
   if (error) {
     console.error('>>>>>> mongoose.connect error <<<<<<<: ', error);
-    throw error;
+    let err = new Error('>>>>>> mongoose.connect error <<<<<<<: ', error);
+    next(err);
   }
 });
 
@@ -88,7 +89,7 @@ mongoose.connect(process.env.MONGO_URL, mongooseOptions, error => {
 
 app.use(function (req, res, next) {
   console.log('>>>> APP UNCAUGHT ERR HANDLER 404 <<<<');
-  var err = new Error('Not Found, req.originalUrl: '+req.originalUrl);
+  let err = new Error('Not Found, req.originalUrl: '+req.originalUrl);
   err.status = 404;
   next(err);
 });

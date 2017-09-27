@@ -3,6 +3,7 @@
 // https://forum.shakacode.com/t/best-practices-for-css-and-css-modules-using-webpack/799
 // https://www.triplet.fi/blog/practical-guide-to-react-and-css-modules/
 // https://medium.com/@aghh1504/4-four-ways-to-style-react-components-ac6f323da822
+// https://webpack.js.org/configuration/devtool/
 
 // devtool: 'inline-source-map'
 // devtool: 'eval-source-map'
