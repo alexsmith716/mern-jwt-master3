@@ -4,6 +4,7 @@
 // https://webpack.js.org/plugins/
 // https://webpack.js.org/guides/hot-module-replacement
 // https://github.com/gajus/babel-plugin-react-css-modules
+// https://github.com/istarkov/babel-plugin-webpack-loaders
 
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
@@ -23,11 +24,9 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-
         exclude: [/node_modules/],
 
         use: [{
-
           loader: 'babel-loader',
           options: {
             babelrc: false,
@@ -38,15 +37,13 @@ module.exports = {
             ],
             plugins: [
               [
-                'css-modules-transform', {
-                  'preprocessCss': './loaders/sass-loader.js',
-                  'generateScopedName': '[name]_[local]_[hash:base64:5]',
-                  'extensions': ['.scss']
+                'babel-plugin-webpack-loaders', {
+                  config: './webpack.config.babel.js',
+                  verbose: false,
                 }
-              ]
+              ],
             ]
           },
-
         }]
       },
       {
@@ -62,17 +59,9 @@ module.exports = {
     ]
   },
 
-  resolve: {
-    modules: [
-      'node_modules',
-      'client',
-    ],
-    extensions: ['.js'],
-  },
-
   target: 'node',
 
-  externals: nodeExternals(),
+  externals: [ nodeExternals({ importType: 'commonjs' }) ],
 
   node: {
     __dirname: true,
