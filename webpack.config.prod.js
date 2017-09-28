@@ -46,24 +46,20 @@ module.exports = {
       {
         test: /\.(jpe?g|gif|png|svg)$/i,
         use:[
-          {
-            loader: 'url-loader',
-            options: {
-              limit:10000
-            }
-          }
+          { loader: 'url-loader', options: { limit:10000 } }
         ]
       },
 
       {
         test: /\.json$/,
         use: [
-          {loader: 'json-loader'}
+          { loader: 'json-loader' }
         ]
       },
 
       {
-        test: /\.scss$/,
+        test: /\.css$/,
+        exclude: /node_modules/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [
@@ -74,25 +70,17 @@ module.exports = {
                 localIdentName: '[name]_[local]_[hash:base64:5]'
               }
             },
-            {
-              loader: 'postcss-loader'
-            },
-            {
-              loader: 'sass-loader'
-            }
+            { loader: 'postcss-loader' }
           ]
         })
       },
 
       {
         test: /\.css$/,
+        include: /node_modules/,
         use: [
-          {
-            loader: 'style-loader'
-          },
-          {
-            loader: 'css-loader'
-          }
+          { loader: 'style-loader' },
+          { loader: 'css-loader' }
         ]
       },
 

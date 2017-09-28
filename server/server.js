@@ -12,6 +12,9 @@ import cors from 'cors';
 import favicon from 'serve-favicon';
 import helmet from 'helmet';
 import webpack from 'webpack';
+import config from '../webpack.config.dev.js';
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
 
 //dotenv.config();
 
@@ -21,8 +24,18 @@ console.log('>>>>>>>>>>> DOTENV :::::: <<<<<<<<<<<<<3: ', typeof process.env.MON
 
 const app = express();
 
+// https://github.com/webpack/webpack-dev-middleware
+// https://github.com/glenjamin/webpack-hot-middleware
+
 if (process.env.NODE_ENV === 'development') {
-  //
+  const compiler = webpack(config);
+  app.use(
+    webpackDevMiddleware(compiler, {
+      noInfo: true,
+      publicPath: config.output.publicPath
+    })
+  );
+  app.use(webpackHotMiddleware(compiler));
 }
 
 import router from './router';

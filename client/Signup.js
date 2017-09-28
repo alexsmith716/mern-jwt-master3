@@ -6,7 +6,7 @@ import {PropTypes} from 'prop-types';
 import { Helmet } from 'react-helmet';
 
 import { signupUser } from './authentication.actions';
-import styles from './signup.scss';
+import styles from './signup.css';
 
 class Signup extends Component {
 

@@ -6,14 +6,15 @@
   "author": "",
   "license": "MIT",
   "scripts": {
-    "bb": "webpack --progress --colors --config webpack.config.client.js && webpack --progress --colors --config webpack.config.server.js",
-    "build:client": "webpack --progress --colors --config webpack.config.client.js",
+    "bb": "webpack --progress --colors --config webpack.config.dev.js && webpack --progress --colors --config webpack.config.server.js",
+    "build:dev": "webpack --progress --colors --config webpack.config.dev.js",
     "build:server": "webpack --progress --colors --config webpack.config.server.js",
     "start": "BABEL_DISABLE_CACHE=1 NODE_ENV=development nodemon --inspect index.js",
     "clean": "rimraf dist"
   },
   "dependencies": {
     "axios": "^0.16.2",
+    "babel-core": "^6.26.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.2",
     "compression": "^1.7.0",
@@ -46,7 +47,6 @@
   "devDependencies": {
     "autoprefixer": "^7.1.4",
     "babel": "^6.23.0",
-    "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-css-modules-transform": "^1.2.7",
@@ -64,6 +64,7 @@
     "eslint-plugin-import": "2.7.0",
     "eslint-plugin-jsx-a11y": "5.1.1",
     "eslint-plugin-react": "7.3.0",
+    "eventsource-polyfill": "^0.9.6",
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^0.11.2",
     "json-loader": "^0.5.7",
