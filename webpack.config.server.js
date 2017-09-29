@@ -1,11 +1,4 @@
 
-// https://webpack.js.org/configuration/externals/
-// https://webpack.js.org/loaders/
-// https://webpack.js.org/plugins/
-// https://webpack.js.org/guides/hot-module-replacement
-// https://github.com/gajus/babel-plugin-react-css-modules
-// https://github.com/istarkov/babel-plugin-webpack-loaders
-
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 
