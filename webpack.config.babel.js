@@ -5,12 +5,11 @@
 // https://github.com/webpack-contrib/css-loader
 // https://javascriptplayground.com/blog/2016/07/css-modules-webpack-react/
 
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
 let cssModulesIdentName = '[name]__[local]__[hash:base64:5]';
 // defines structure of what generated CSS class should be, maps to generated output
 
 if (process.env.NODE_ENV === 'production') {
-  //
+  cssModulesIdentName = '[hash:base64]';
 }
 
 module.exports = {
@@ -31,11 +30,7 @@ module.exports = {
       {
         test: /\.css$/,
         exclude: /node_modules/,
-        loaders: [
-          'style-loader',
-          'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]--[hash:base64:5]',
-          'postcss-loader',
-        ],
+        loader: 'style-loader!css-loader?localIdentName=' + cssModulesIdentName + '&modules&importLoaders=1&sourceMap!postcss-loader',
       },
 
       {

@@ -1,94 +1,44 @@
 
 import React from 'react';
 import { render } from 'react-dom';
-
-import { Provider } from 'react-redux';
-// import { Router } from 'react-router-dom';
+import { AppContainer } from 'react-hot-loader';
+import { Provider } from 'react-redux';;
 import { BrowserRouter as Router } from 'react-router-dom';
-import { createStore, applyMiddleware } from 'redux';
-import reduxThunk from 'redux-thunk';
+import { renderRoutes } from 'react-router-config';
 
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
+
+import routes from './routes';
 //import history from './history';
 import App from './App';
-import reducers from './reducers';
 import { AUTH_USER } from './authentication.types';
-
-const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
-
-// entire state of app is stored in an object tree inside a single *store*
-// To change the state tree, emit an *action* (an object describing what happened) 
-// *reducers* specify HOW the *action* transform the state tree
-// state can be: a primitive, an array, an object or an Immutable.js data structure
-// return a new object if the state changes, do not mutate state object 
-
-// actions dispatched upon store
-// store methods: 
-// redux: implements hot reloading
-// time travel debugger: https://github.com/gaearon/redux-devtools
-
-const store = createStoreWithMiddleware(reducers);
+import reducers from './reducers';
+const mountApp = document.getElementById('root');
 
 const token = localStorage.getItem('token');
 
-console.log('>>>> client > INDEX.js <<<< loaded');
+const enhancers = [
+  applyMiddleware(thunk),
+];
+
+const store = createStore(reducers, window.__INITIAL_STATE__, enhancers);
+
+if (module.hot) {
+  module.hot.accept('./reducers', () => {
+    const newReducer = require('./reducers').default;
+    store.replaceReducer(newReducer);
+  });
+}
+
 // <Router history={history}>
 
 if (token) {
   store.dispatch({ type: AUTH_USER });
 }
 
-ReactDOM.render(
-  <Provider store={store}>
-    <Router>
-      <div>
-        <Header />
-        <div className="container">
-          <App />
-        </div>
-      </div>
-    </Router>
-  </Provider>
-  , document.getElementById('root'));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+console.log('>>>> client > INDEX.js <<<< module.hot', module.hot);
+console.log('>>>> client > INDEX.js <<<< store', store);
+console.log('>>>> client > INDEX.js <<<< token', token);
+console.log('>>>> client > INDEX.js <<<< Router', Router);
+console.log('>>>> client > INDEX.js <<<< mountApp', mountApp);
