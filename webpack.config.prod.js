@@ -1,8 +1,4 @@
 
-// https://webpack.js.org/configuration/devtool/
-// https://webpack.js.org/guides/code-splitting/
-// https://webpack.js.org/plugins/commons-chunk-plugin/
-
 // devtool: 'inline-source-map'
 // devtool: 'eval-source-map'
 
@@ -10,11 +6,18 @@ const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
+// let cssnext = require('postcss-cssnext');
+// let postcssFocus = require('postcss-focus');
+// let postcssReporter = require('postcss-reporter');
+// let cssnano = require('cssnano');
+
 module.exports = {
 
   entry: {
-    app: [ path.join(__dirname, './client/index.js') ],
-    vendor: [ 'react', 'react-dom' ]
+    app: [ 
+      path.join(__dirname, './client/index.js'), 
+    ],
+    vendor: [ 'react', 'react-dom', ]
   },
 
   output: {
@@ -28,7 +31,7 @@ module.exports = {
 
       {
         test: /\.(js|jsx)$/,
-        exclude: [/node_modules/],
+        exclude: /node_modules/,
         use: [{
           loader: 'babel-loader',
           options: {
@@ -91,7 +94,7 @@ module.exports = {
     extensions: ['.js', '.jsx', '.css'],
   },
 
-  devtool: 'cheap-module-source-map',
+  devtool: 'cheap-module-eval-source-map',
 
   plugins: [
 
