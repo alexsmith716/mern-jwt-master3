@@ -26,7 +26,6 @@
 //  It doesn't provide all the capabilities of Webpack (plugins)
 
 const WebpackIsomorphicTools = require('webpack-isomorphic-tools');
-
 // equal to your Webpack configuration "context" parameter
 const projectBasePath = require('path').resolve(__dirname, './');
 
@@ -43,7 +42,6 @@ require('babel-register')({
 
 require('babel-polyfill');
 require('./server/server');
-
 
 // "global.webpackIsomorphicTools" used later in app middleware
 
@@ -67,7 +65,7 @@ if (process.env.NODE_ENV === 'production') {
 
   });
 
-}
+};
 
 
 
