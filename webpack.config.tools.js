@@ -118,7 +118,7 @@ module.exports = {
 
     style_modules: {
 
-      extensions: ['css'],
+      extensions: ['css', 'scss'],
 
       filter: function(module, regex, options, log) {
         if (options.development) {
@@ -154,39 +154,4 @@ module.exports = {
     },
 
   },
-
-
-
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
