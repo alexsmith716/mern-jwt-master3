@@ -62,9 +62,9 @@ module.exports = {
 
     images: {
 
-      extensions: ['png', 'jpg', 'jpeg', 'gif', 'png', 'svg']
+      extensions: ['png', 'jpg', 'jpeg', 'gif', ],
 
-      parser: WebpackIsomorphicToolsPlugin.url_loader_parser
+      parser: WebpackIsomorphicToolsPlugin.url_loader_parser,
 
     },
 
@@ -72,7 +72,7 @@ module.exports = {
 
       extension: 'svg',
 
-      parser: WebpackIsomorphicToolsPlugin.url_loader_parser
+      parser: WebpackIsomorphicToolsPlugin.url_loader_parser,
 
     },
 
@@ -80,7 +80,7 @@ module.exports = {
 
       extensions: [ 'woff', 'woff2', 'ttf', 'eot' ],
 
-      parser: WebpackIsomorphicToolsPlugin.url_loader_parser
+      parser: WebpackIsomorphicToolsPlugin.url_loader_parser,
 
     },
 
@@ -112,7 +112,7 @@ module.exports = {
       // in development mode there's webpack "style-loader",
       // so the module.name is not equal to module.name
       path: WebpackIsomorphicToolsPlugin.style_loader_path_extractor,
-      parser: WebpackIsomorphicToolsPlugin.css_loader_parser
+      parser: WebpackIsomorphicToolsPlugin.css_loader_parser,
 
     },
 

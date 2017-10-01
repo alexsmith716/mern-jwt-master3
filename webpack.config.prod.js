@@ -6,6 +6,9 @@ const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
+const webpackIsomorphicToolsConfig = require('./webpack.config.tools');
+const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
+
 // let cssnext = require('postcss-cssnext');
 // let postcssFocus = require('postcss-focus');
 // let postcssReporter = require('postcss-reporter');
@@ -102,6 +105,8 @@ module.exports = {
       name: 'vendor',
       minChunks: Infinity,
     }),
+
+    new WebpackIsomorphicToolsPlugin(webpackIsomorphicToolsConfig),
 
     new ExtractTextPlugin('styles.css'),
   ]

@@ -2,20 +2,22 @@
 // https://github.com/catamphetamine/universal-webpack
 // https://github.com/catamphetamine/webpack-isomorphic-tools
 
-// webpack-isomorphic-tools is a small helper module 
-//  providing basic support for isomorphic (universal) rendering when using Webpack 
-//  (this is an alternative solution to using Webpack's officially recommended target: "node" approach).
+// =================================================================================================
 
-// A Webpack application will usually crash when tried to be run in Node.js:
-//  (you'll get a lot of SyntaxErrors with Unexpected tokens).
+// It plugs into Webpack to generate a JSON file that contains a map between each asset you require 
+//  and the value you need -path, mark-up or object
 
-// The reason is that Webpack introduces its own layer above the standard javascript. 
-// This extra layer handles all require() calls magically resolving them to whatever it is configured to.
+// "it's always better to fetch an already rendered content
+//  than to first fetch the application code and only
+//  then fetch the content to render the page"
 
-// "webpack-isomorphic-tools" injects that require() layer above the standard javascript in Node.js.
+// "a Webpack application will usually crash when tried to be run in Node.js"
+// (you'll get a lot of SyntaxErrors with Unexpected tokens).
 
-// An alternative solution exists now:
-//  to compile server-side code with Webpack the same way it already compiles the client-side code. 
+// "The reason is that Webpack introduces its own layer above the standard javascript. 
+//  This extra layer handles all require() calls magically resolving them to whatever it is configured to."
+
+// Solution: "webpack-isomorphic-tools" injects that require() layer above the standard javascript in Node.js.
 
 // This is the officially recommended way to go and one can use universal-webpack library to achieve that. 
 //  However, some people still prefer this (earlier) library, so it still exists.
@@ -24,6 +26,10 @@
 //  when running application code on a Node.js server without Webpack. 
 //  It basically fixes all those require()s of assets and makes them work instead of throwing SyntaxErrors. 
 //  It doesn't provide all the capabilities of Webpack (plugins)
+
+// webpack-isomorphic-tools is a small helper module 
+//  providing basic support for isomorphic (universal) rendering when using Webpack 
+//  (this is an alternative solution to using Webpack's officially recommended target: "node" approach).
 
 const WebpackIsomorphicTools = require('webpack-isomorphic-tools');
 // equal to your Webpack configuration "context" parameter
@@ -47,6 +53,8 @@ require('./server/server');
 
 if (process.env.NODE_ENV === 'production') {
 
+  console.log('>>>> index.js !!! <<<< prod: ', process.env.NODE_ENV)
+
   global.webpackIsomorphicTools = new WebpackIsomorphicTools(require('./webpack.config.tools'))
 
   .server(projectBasePath, () => {
@@ -56,6 +64,8 @@ if (process.env.NODE_ENV === 'production') {
   });
 
 } else {
+
+  console.log('>>>> index.js !!! <<<< dev: ', process.env.NODE_ENV)
 
   global.webpackIsomorphicTools = new WebpackIsomorphicTools(require('./webpack.config.tools'))
 

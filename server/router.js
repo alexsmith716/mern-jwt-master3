@@ -32,6 +32,10 @@ module.exports = function(app) {
     const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
     const store = createStoreWithMiddleware(reducers);
 
+    if (process.env.NODE_ENV === 'development') {
+      global.webpackIsomorphicTools.refresh();
+    }
+
     let foundPath = null;
     let { path, component } = routes.routes.find(
       ({ path, exact }) => {
