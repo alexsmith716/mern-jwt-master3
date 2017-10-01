@@ -4,7 +4,9 @@
 
 const webpack = require('webpack');
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+const webpackIsomorphicToolsConfig = require('./webpack.config.tools');
+const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
 
 module.exports = {
 
@@ -95,7 +97,8 @@ module.exports = {
       minChunks: Infinity,
     }),
 
-    new ExtractTextPlugin('styles.css'),
+    new WebpackIsomorphicToolsPlugin(webpackIsomorphicToolsConfig).development(),
+
   ]
 
 };
