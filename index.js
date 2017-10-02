@@ -35,6 +35,7 @@ const WebpackIsomorphicTools = require('webpack-isomorphic-tools');
 // equal to your Webpack configuration "context" parameter
 const projectBasePath = require('path').resolve(__dirname, './');
 
+// babel-register: a require hook. binds itself to node's require & automatically compiles files on the fly
 require('babel-register')({
   plugins: [
     [
@@ -53,8 +54,6 @@ require('./server/server');
 
 if (process.env.NODE_ENV === 'production') {
 
-  console.log('>>>> index.js !!! <<<< prod: ', process.env.NODE_ENV)
-
   global.webpackIsomorphicTools = new WebpackIsomorphicTools(require('./webpack.config.tools'))
 
   .server(projectBasePath, () => {
@@ -64,8 +63,6 @@ if (process.env.NODE_ENV === 'production') {
   });
 
 } else {
-
-  console.log('>>>> index.js !!! <<<< dev: ', process.env.NODE_ENV)
 
   global.webpackIsomorphicTools = new WebpackIsomorphicTools(require('./webpack.config.tools'))
 
