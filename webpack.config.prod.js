@@ -20,7 +20,7 @@ module.exports = {
     app: [ 
       path.join(__dirname, './client/index.js'), 
     ],
-    vendor: [ 'react', 'react-dom', ]
+    vendor: [ 'react', 'react-dom', 'bootstrap-loader', ]
   },
 
   output: {
@@ -65,7 +65,6 @@ module.exports = {
 
       {
         test: /\.css$/,
-        exclude: /node_modules/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [
@@ -82,19 +81,28 @@ module.exports = {
       },
 
       {
-        test: /\.css$/,
-        include: /node_modules/,
-        use: [
-          { loader: 'style-loader' },
-          { loader: 'css-loader' }
-        ]
+        test: /\.scss$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true,
+                localIdentName: '[name]_[local]_[hash:base64:5]'
+              }
+            },
+            { loader: 'postcss-loader' },
+            { loader: 'sass-loader' }
+          ]
+        })
       },
 
     ]
   },
 
   resolve: {
-    extensions: ['.js', '.jsx', '.css'],
+    extensions: [ '*', '.js', '.jsx', ],
   },
 
   devtool: 'cheap-module-eval-source-map',
@@ -104,6 +112,7 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       minChunks: Infinity,
+      filename: '[name].[hash].js'
     }),
 
     new WebpackIsomorphicToolsPlugin(webpackIsomorphicToolsConfig),

@@ -18,7 +18,7 @@ module.exports = {
       'webpack/hot/only-dev-server',
       path.join(__dirname, './client/index.js')
     ],
-    vendor: [ 'react', 'react-dom' ]
+    vendor: [ 'react', 'react-dom', 'bootstrap-loader', ]
   },
 
   output: {
@@ -65,19 +65,21 @@ module.exports = {
 
       {
         test: /\.css$/,
-        exclude: /node_modules/,
         use: [
-          { loader: 'style-loader!css-loader?localIdentName=[name]__[local]__[hash:base64:5]&modules&importLoaders=1&sourceMap!postcss-loader' },
-        ]
-      }, 
+          'style-loader',
+          'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]__[hash:base64:5]',
+          'postcss-loader',
+        ],
+      },
 
       {
-        test: /\.css$/,
-        include: /node_modules/,
+        test: /\.scss$/,
         use: [
-          { loader: 'style-loader' },
-          { loader: 'css-loader' },
-        ]
+          'style-loader',
+          'css-loader?modules&importLoaders=2&localIdentName=[name]__[local]__[hash:base64:5]',
+          'postcss-loader',
+          'sass-loader',
+        ],
       },
     ]
   },
@@ -95,6 +97,7 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       minChunks: Infinity,
+      filename: '[name].[hash].js'
     }),
 
     new WebpackIsomorphicToolsPlugin(webpackIsomorphicToolsConfig).development(),
