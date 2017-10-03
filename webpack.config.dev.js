@@ -8,6 +8,7 @@ const path = require('path');
 
 const webpackIsomorphicToolsConfig = require('./webpack.config.tools');
 const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
 
@@ -193,6 +194,12 @@ module.exports = {
 
     new WebpackIsomorphicToolsPlugin(webpackIsomorphicToolsConfig).development(),
 
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'server',
+      analyzerPort: 8888,
+      defaultSizes: 'parsed',
+      openAnalyzer: false,
+      generateStatsFile: false
+    })
   ]
-
 };
