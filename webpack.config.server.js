@@ -25,7 +25,7 @@ module.exports = {
             babelrc: false,
             presets: [
               ['env', {'targets': { 'browsers': ['last 2 versions'] }}],
-              'stage-2',
+              'stage-0',
               'react'
             ],
             plugins: [

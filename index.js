@@ -1,35 +1,12 @@
 
-// https://github.com/catamphetamine/universal-webpack
-// https://github.com/catamphetamine/webpack-isomorphic-tools
+// https://nodejs.org/dist/latest-v8.x/docs/api/globals.html
+// https://nodejs.org/dist/latest-v8.x/docs/api/modules.html
 
-// =================================================================================================
-
-// It plugs into Webpack to generate a JSON file that contains a map between each asset you require 
-//  and the value you need -path, mark-up or object
-
-// "it's always better to fetch an already rendered content
-//  than to first fetch the application code and only
-//  then fetch the content to render the page"
-
-// "a Webpack application will usually crash when tried to be run in Node.js"
-// (you'll get a lot of SyntaxErrors with Unexpected tokens).
-
-// "The reason is that Webpack introduces its own layer above the standard javascript. 
-//  This extra layer handles all require() calls magically resolving them to whatever it is configured to."
-
-// Solution: "webpack-isomorphic-tools" injects that require() layer above the standard javascript in Node.js.
-
-// This is the officially recommended way to go and one can use universal-webpack library to achieve that. 
-//  However, some people still prefer this (earlier) library, so it still exists.
-
-// webpack-isomorphic-tools mimics Webpack's require() 
-//  when running application code on a Node.js server without Webpack. 
-//  It basically fixes all those require()s of assets and makes them work instead of throwing SyntaxErrors. 
-//  It doesn't provide all the capabilities of Webpack (plugins)
-
-// webpack-isomorphic-tools is a small helper module 
-//  providing basic support for isomorphic (universal) rendering when using Webpack 
-//  (this is an alternative solution to using Webpack's officially recommended target: "node" approach).
+// global objects are available in all modules
+// In browsers, the top-level scope is the global scope. 
+// This means that within the browser var something will define a new global variable. 
+// In Node.js this is different. The top-level scope is not the global scope; 
+// var something inside a Node.js module will be local to that module.
 
 const WebpackIsomorphicTools = require('webpack-isomorphic-tools');
 // equal to your Webpack configuration "context" parameter
@@ -48,7 +25,6 @@ require('babel-register')({
 });
 
 require('babel-polyfill');
-require('./server/server');
 
 // "global.webpackIsomorphicTools" used later in app middleware
 
