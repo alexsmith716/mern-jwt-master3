@@ -1,6 +1,7 @@
 
 // devtool: 'inline-source-map'
 // devtool: 'eval-source-map'
+// https://www.w3.org/TR/eventsource/
 
 const webpack = require('webpack');
 const path = require('path');
@@ -38,7 +39,7 @@ module.exports = {
           options: {
             presets: [
               ['env', {'targets': { 'browsers': ['last 2 versions'] }}],
-              'stage-2',
+              'stage-0',
               'react'
             ]
           }
@@ -47,40 +48,123 @@ module.exports = {
       },
 
       {
-        test: /\.(jpe?g|gif|png|svg)$/i,
-        use:[{
-          loader: 'url-loader',
-          options: {
-            limit:10000
+        test: /\.woff2?(\?v=\d+\.\d+\.\d+)?$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: { limit: 10000, mimetype: 'application/font-woff' }
           }
-        }]
+        ]
+      },
+
+      {
+        test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: { limit: 10000, mimetype: 'application/octet-stream' }
+          }
+        ]
+      },
+
+      {
+        test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+        use: [
+          { loader: 'file-loader' }
+        ]
+      },
+
+      {
+        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: { limit: 10000, mimetype: 'image/svg+xml' }
+          }
+        ]
+      },
+
+      {
+        test: /\.(jpe?g|gif|png)$/i,
+        use: [
+          {
+            loader: 'url-loader',
+            options: { limit: 10000 }
+          }
+        ]
       },
 
       {
         test: /\.json$/,
         use: [
-          { loader: 'json-loader' },
+          { loader: 'json-loader' }
         ]
       },
 
       {
-        test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]__[hash:base64:5]',
-          'postcss-loader',
+        test: /\.less$/,
+        use:[
+          { loader: 'style-loader',
+            options: { sourceMap: true }
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              importLoaders: 2,
+              sourceMap: true,
+              localIdentName: '[local]___[hash:base64:5]'
+            }
+          }, 
+          {
+            loader: 'postcss-loader',
+            options: {
+              sourceMap: true
+            }
+          }, 
+          {
+            loader: 'less-loader',
+            query: {
+              outputStyle: 'expanded',
+              sourceMap: true
+            }
+          }
         ],
       },
 
       {
         test: /\.scss$/,
-        use: [
-          'style-loader',
-          'css-loader?modules&importLoaders=2&localIdentName=[name]__[local]__[hash:base64:5]',
-          'postcss-loader',
-          'sass-loader',
+        use:[
+          {
+            loader: 'style-loader',
+            options: { sourceMap: true }
+          }, 
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              importLoaders: 2,
+              sourceMap: true,
+              localIdentName: '[local]___[hash:base64:5]'
+            }
+          }, 
+          {
+            loader: 'postcss-loader',
+            options: {
+              sourceMap: true
+            }
+          }, 
+          {
+            loader: 'sass-loader',
+            options: {
+              outputStyle: 'expanded',
+              sourceMap: true
+            }
+          }
         ],
+
       },
+
     ]
   },
 
@@ -88,7 +172,7 @@ module.exports = {
     extensions: ['.js', '.jsx', '.css'],
   },
 
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'inline-source-map',
 
   plugins: [
 
@@ -97,7 +181,14 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       minChunks: Infinity,
-      filename: '[name].[hash].js'
+      filename: 'vendor.js'
+    }),
+
+    new webpack.DefinePlugin({
+      'process.env': {
+        CLIENT: JSON.stringify(true),
+        NODE_ENV: JSON.stringify('development'),
+      }
     }),
 
     new WebpackIsomorphicToolsPlugin(webpackIsomorphicToolsConfig).development(),

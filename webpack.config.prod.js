@@ -109,15 +109,24 @@ module.exports = {
 
   plugins: [
 
+    new webpack.HotModuleReplacementPlugin(),
+
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       minChunks: Infinity,
-      filename: '[name].[hash].js'
+      filename: 'vendor.js'
+    }),
+
+    new webpack.DefinePlugin({
+      'process.env': {
+        CLIENT: JSON.stringify(true),
+        NODE_ENV: JSON.stringify('development'),
+      }
     }),
 
     new WebpackIsomorphicToolsPlugin(webpackIsomorphicToolsConfig),
 
-    new ExtractTextPlugin('styles.css'),
+    new ExtractTextPlugin('styles.css', { allChunks: true }),
   ]
 
 };
