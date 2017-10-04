@@ -13,14 +13,30 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 module.exports = {
 
   entry: {
-    app: [ 
-      'eventsource-polyfill',
-      'react-hot-loader/patch',
+    app: [
       'webpack-hot-middleware/client',
       'webpack/hot/only-dev-server',
+      'react-hot-loader/patch',
+      'babel-polyfill',
+      'bootstrap-loader',
       path.join(__dirname, './client/index.js')
     ],
-    vendor: [ 'react', 'react-dom', 'bootstrap-loader', ]
+    vendor: [
+      'axios',
+      'react',
+      'react-bootstrap',
+      'react-dom',
+      'react-helmet',
+      'react-hot-loader',
+      'react-redux',
+      'react-router',
+      'react-router-bootstrap',
+      'react-router-config',
+      'react-router-dom',
+      'redux',
+      'redux-form',
+      'redux-thunk',
+    ]
   },
 
   output: {
@@ -114,13 +130,14 @@ module.exports = {
               modules: true,
               importLoaders: 2,
               sourceMap: true,
-              localIdentName: '[local]___[hash:base64:5]'
+              localIdentName: '[local]__[hash:base64:5]'
             }
           }, 
           {
             loader: 'postcss-loader',
             options: {
-              sourceMap: true
+              config: './postcss.config.js',
+              sourceMap: true,
             }
           }, 
           {
@@ -146,13 +163,14 @@ module.exports = {
               modules: true,
               importLoaders: 2,
               sourceMap: true,
-              localIdentName: '[local]___[hash:base64:5]'
+              localIdentName: '[local]__[hash:base64:5]'
             }
           }, 
           {
             loader: 'postcss-loader',
             options: {
-              sourceMap: true
+              config: './postcss.config.js',
+              sourceMap: true,
             }
           }, 
           {
@@ -163,7 +181,39 @@ module.exports = {
             }
           }
         ],
+      },
 
+      {
+        test: /\.css$/,
+        use:[
+          {
+            loader: 'style-loader',
+            options: { sourceMap: true }
+          }, 
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              importLoaders: 2,
+              sourceMap: true,
+              localIdentName: '[local]__[hash:base64:5]'
+            }
+          }, 
+          {
+            loader: 'postcss-loader',
+            options: {
+              config: './postcss.config.js',
+              sourceMap: true,
+            }
+          }, 
+          {
+            loader: 'sass-loader',
+            options: {
+              outputStyle: 'expanded',
+              sourceMap: true
+            }
+          }
+        ],
       },
 
     ]
@@ -182,7 +232,7 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       minChunks: Infinity,
-      filename: 'vendor.js'
+      filename: '[name].[chunkhash].js'
     }),
 
     new webpack.DefinePlugin({
