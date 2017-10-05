@@ -1,6 +1,7 @@
 
-// devtool: 'inline-source-map'
-// devtool: 'eval-source-map'
+// https://github.com/webpack-contrib/css-loader
+// https://github.com/webpack/file-loader
+// https://github.com/webpack/url-loader
 // https://www.w3.org/TR/eventsource/
 
 const webpack = require('webpack');
@@ -40,8 +41,9 @@ module.exports = {
   },
 
   output: {
-    filename: '[name].js',
-    path: path.join(__dirname, '/dist/client/'),
+    path: path.join(__dirname, '/dist'),
+    filename: '[name].[chunkhash].js',
+    chunkFilename: '[name].[chunkhash].js',
     publicPath: '/',
   },
 
@@ -130,7 +132,7 @@ module.exports = {
               modules: true,
               importLoaders: 2,
               sourceMap: true,
-              localIdentName: '[local]__[hash:base64:5]'
+              localIdentName: '[name]_[local]_[hash:base64:5]'
             }
           }, 
           {
@@ -163,7 +165,7 @@ module.exports = {
               modules: true,
               importLoaders: 2,
               sourceMap: true,
-              localIdentName: '[local]__[hash:base64:5]'
+              localIdentName: '[name]_[local]_[hash:base64:5]'
             }
           }, 
           {
@@ -194,9 +196,9 @@ module.exports = {
             loader: 'css-loader',
             options: {
               modules: true,
-              importLoaders: 2,
+              importLoaders: 1,
               sourceMap: true,
-              localIdentName: '[local]__[hash:base64:5]'
+              localIdentName: '[name]_[local]_[hash:base64:5]'
             }
           }, 
           {
@@ -225,7 +227,7 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       minChunks: Infinity,
-      filename: '[name].js'
+      filename: '[name].[hash].js'
     }),
 
     new webpack.DefinePlugin({
