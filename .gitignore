@@ -51,7 +51,6 @@ node_modules/
 ssl
 
 bundle.js
-dist
 server.js.map
 styles.css
 styles.css.map
@@ -59,5 +58,6 @@ public/server.js
 server/config/config.js
 coverage/
 .nyc_output/
+webpack-stats.json
 
 
