@@ -41,8 +41,162 @@ module.exports = {
   module: {
     rules: [
 
-      /* ... */
+      {
+        test: /\.(js|jsx)$/,
+        exclude: [/node_modules/, /.+\.config.js/],
+        use: [{
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              ['env', {'targets': { 'browsers': ['last 2 versions'] }}],
+              'stage-0',
+              'react'
+            ]
+          }
+        }]
 
+      },
+
+      {
+        test: /\.woff2?(\?v=\d+\.\d+\.\d+)?$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: { limit: 10000, mimetype: 'application/font-woff' }
+          }
+        ]
+      },
+
+      {
+        test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: { limit: 10000, mimetype: 'application/octet-stream' }
+          }
+        ]
+      },
+
+      {
+        test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+        use: [
+          { loader: 'file-loader' }
+        ]
+      },
+
+      {
+        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: { limit: 10000, mimetype: 'image/svg+xml' }
+          }
+        ]
+      },
+
+      {
+        test: /\.(jpe?g|gif|png)$/i,
+        use: [
+          {
+            loader: 'url-loader',
+            options: { limit: 10000 }
+          }
+        ]
+      },
+
+      {
+        test: /\.json$/,
+        use: [
+          { loader: 'json-loader' }
+        ]
+      },
+
+
+      {
+        test: /\.less$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use:[
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true,
+                importLoaders: 2,
+                sourceMap: true
+              }
+            }, 
+            {
+              loader: 'postcss-loader',
+              options: {
+                config: './postcss.config.js',
+                sourceMap: true,
+              }
+            }, 
+            {
+              loader: 'less-loader',
+              query: {
+                outputStyle: 'expanded',
+                sourceMap: true
+              }
+            }
+          ]
+        })
+      },
+
+      {
+        test: /\.scss$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use:[
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true,
+                importLoaders: 2,
+                sourceMap: true
+              }
+            }, 
+            {
+              loader: 'postcss-loader',
+              options: {
+                config: './postcss.config.js',
+                sourceMap: true,
+              }
+            }, 
+            {
+              loader: 'sass-loader',
+              query: {
+                outputStyle: 'expanded',
+                sourceMap: true
+              }
+            }
+          ]
+        })
+      },
+
+      {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use:[
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true,
+                importLoaders: 2,
+                sourceMap: true
+              }
+            }, 
+            {
+              loader: 'postcss-loader',
+              options: {
+                config: './postcss.config.js',
+                sourceMap: true,
+              }
+            }
+          ]
+        })
+      },
     ]
   },
 

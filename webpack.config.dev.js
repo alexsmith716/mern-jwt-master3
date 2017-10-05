@@ -205,13 +205,6 @@ module.exports = {
               config: './postcss.config.js',
               sourceMap: true,
             }
-          }, 
-          {
-            loader: 'sass-loader',
-            options: {
-              outputStyle: 'expanded',
-              sourceMap: true
-            }
           }
         ],
       },
@@ -232,7 +225,7 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       minChunks: Infinity,
-      filename: '[name].[chunkhash].js'
+      filename: '[name].js'
     }),
 
     new webpack.DefinePlugin({
