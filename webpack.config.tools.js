@@ -3,7 +3,7 @@ const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
 
 module.exports = {
 
-  debug: true,
+  debug: false,
 
   // using Webpack's `resolve.modulesDirectories`
   modulesDirectories: ['node_modules'],
