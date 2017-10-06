@@ -1,4 +1,9 @@
 
+// https://babeljs.io/docs/usage/babel-register/
+// By default babel-node and babel-register save to a json cache in temporary directory
+// BABEL_CACHE_PATH=/foo/my-cache.json (specify location)
+// BABEL_DISABLE_CACHE=1 (disable cache)
+
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 
@@ -8,8 +13,8 @@ module.exports = {
 
   output: {
     filename: 'server.bundle.js',
-    path: path.join(__dirname, '/dist'),
-    libraryTarget: 'commonjs2'
+    path: path.join(__dirname, './build/server'),
+    publicPath: '/build/server/'
   },
 
   module: {
@@ -18,7 +23,6 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: [/node_modules/],
-
         use: [{
           loader: 'babel-loader',
           options: {
@@ -47,7 +51,6 @@ module.exports = {
             /* ... */
           }
         }]
-
       },
     ]
   },

@@ -6,13 +6,17 @@
   "author": "",
   "license": "MIT",
   "scripts": {
-    "startHot": "webpack-dev-server --hot",
-    "bb": "webpack --progress --colors --config webpack.config.dev.js && webpack --progress --colors --config webpack.config.server.js",
-    "build:dev": "webpack --progress --colors --config webpack.config.dev.js",
-    "build:prod": "yarn clean && NODE_ENV=production webpack --progress --colors --config webpack.config.prod.js",
-    "build:server": "BABEL_DISABLE_CACHE=1 webpack --progress --colors --config webpack.config.server.js",
-    "start:dev": "BABEL_DISABLE_CACHE=1 NODE_ENV=development nodemon --inspect index.js",
-    "clean": "rimraf public/static/dist/client"
+    "start-dev": "BABEL_DISABLE_CACHE=1 NODE_ENV=development nodemon index.js --ignore client/ --ignore webpack-assets.json",
+    "start-prod": " BABEL_DISABLE_CACHE=1 NODE_ENV=production node index.js",
+    "build-start": "yarn clear && yarn build && yarn start-prod",
+    "build": "yarn clear && yarn build-client && yarn build-server",
+    "build-dev": "yarn clear-dev && webpack --config webpack.config.dev.js",
+    "build-client": "yarn clear-client && NODE_ENV=production webpack --config webpack.config.prod.js",
+    "build-server": "yarn clear-server && NODE_ENV=production BABEL_DISABLE_CACHE=1 webpack --config webpack.config.server.js",
+    "clear": "rimraf build",
+    "clear-dev": "rimraf dist",
+    "clear-client": "rimraf public/static/dist/client",
+    "clear-server": "rimraf build/server"
   },
   "dependencies": {
     "axios": "^0.16.2",
